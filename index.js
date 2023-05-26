@@ -2,15 +2,28 @@ import http from 'http'
 import {resultsHandler} from './functions.js'
 
 const server = http.createServer((req, res) => {
+    if(req.method === 'OPTIONS') {
+      res.writeHead(200, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      })
+      res.end()
+      return
+    }
+  
     if(req.method === 'POST' && req.url === '/') {
         let data = ''
         req.on('data', chank => {
             data += chank
         })
         req.on('end', () => {
-            dataArr = JSON.parse(data)
+            let dataArr = JSON.parse(data)
             let result = resultsHandler(dataArr)
-            res.setHeader('Content-Type', 'text/html')
+            res.writeHead(200, {
+              'Content-Type': 'text/html',
+              'Access-Control-Allow-Origin': '*'
+            })
             res.end(result)
         })
     }
