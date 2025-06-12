@@ -1,46 +1,43 @@
 export function resultsHandler(answers) {
-    let ageFeature, gendFeature, logicFeature, colorFeature, lifestyleFeature, piramidFeature
+    const ageFeature = answers.age === 'From 38' ? 'an experienced' : 'a young'
+    const gendFeature = answers.gender.toLowerCase()
 
-    if(answers[1].age === 'From 38') {
-        ageFeature = 'an experienced'
-    } else {
-        ageFeature = 'a young'
-    }
-
-    gendFeature = answers[0].gender.toLowerCase()
-
+    const logicAnswers = [
+        { answerKey: 'selectedExcess', rightAnswer: 'Bench' },
+        { answerKey: 'numberLineExtention', rightAnswer: '48' },
+        { answerKey: 'excessCity', rightAnswer: 'New-York' },
+        { answerKey: 'dancingMan', rightAnswer: '1' },
+        { answerKey: 'suitableNumber', rightAnswer: '44' }
+    ]
     let logicCounter = 0
-    if(answers[2].selectedExcess === 'Bench') {logicCounter++}
-    if(answers[3].numberLineExtention === '48') {logicCounter++}
-    if(answers[6].excessCity === 'New-York') {logicCounter++}
-    if(answers[7].dancingMan === '1') {logicCounter++}
-    if(answers[10].suitableNumber === '44') {logicCounter++}
-    if(logicCounter < 3) {
-        logicFeature = 'You should work on the development of logical thinking.'
-    } else {
-        logicFeature = 'Your logical thinking is well developed.'
-    }
 
-    if(answers[4].selectedColor1 === answers[5].selectedColor2) {
-        colorFeature = 'You are consistent and purposeful.'
-    } else {
-        colorFeature = 'You tend to change your mind from time to time.'
-    }
+    logicAnswers.forEach(ans => {
+        if (answers[ans.answerKey] === ans.rightAnswer) {
+            logicCounter++
+        }
+    })
 
-    if(answers[8].lifestyle === 'To enjoy every minute of your time') {
+    const logicFeature = logicCounter < 3
+        ? 'You should work on the development of logical thinking.'
+        : 'Your logical thinking is well developed.'
+    
+    const colorFeature = answers.selectedColor1 === answers.selectedColor2
+        ? 'You are consistent and purposeful.'
+        : 'You tend to change your mind from time to time.'
+
+    let lifestyleFeature = ''
+    if (answers.lifestyle === 'To enjoy every minute of your time') {
         lifestyleFeature = 'You live for today.'
-    } else if(answers[8].lifestyle === 'To be directed thoughts into the future') {
+    } else if(answers.lifestyle === 'To be directed thoughts into the future') {
         lifestyleFeature = 'You tend to planning.'
     } else {
         lifestyleFeature = 'You tend to be analytical.'
     }
 
-    if(answers[9].piramidFeature === 'It is pointed') {
-        piramidFeature = 'You tend to be distrustful for other people.'
-    } else {
-        piramidFeature = 'You are a calm and balanced person.'
-    }
+    const piramidFeature = answers.piramidFeature === 'It is pointed'
+        ? 'You tend to be distrustful for other people.'
+        : 'You are a calm and balanced person.'
 
-    let result = `Processing of your answers showed the next. You are ${ageFeature} ${gendFeature}. ${logicFeature} ${colorFeature} ${lifestyleFeature} ${piramidFeature} And, as you may have guessed, this is not a real IQ-test.`
+    const result = `Processing of your answers showed the next. You are ${ageFeature} ${gendFeature}. ${logicFeature} ${colorFeature} ${lifestyleFeature} ${piramidFeature} And, as you may have guessed, this is not a real IQ-test.`
     return result
 }

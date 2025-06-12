@@ -21,8 +21,8 @@ const server = http.createServer((req, res) => {
             data += chank
         })
         req.on('end', () => {
-            let dataArr = JSON.parse(data)
-            let result = resultsHandler(dataArr)
+            let answers = JSON.parse(data)
+            let result = resultsHandler(answers)
             res.writeHead(200, {
               'Content-Type': 'text/html',
               'Access-Control-Allow-Origin': origin
