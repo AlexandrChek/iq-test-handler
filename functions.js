@@ -1,4 +1,6 @@
-export function resultsHandler(answers) {
+export function resultsHandler(req, res) {
+    const answers = req.body
+
     const ageFeature = answers.age === 'From 38' ? 'an experienced' : 'a young'
     const gendFeature = answers.gender.toLowerCase()
 
@@ -39,5 +41,6 @@ export function resultsHandler(answers) {
         : 'You are a calm and balanced person.'
 
     const result = `Processing of your answers showed the next. You are ${ageFeature} ${gendFeature}. ${logicFeature} ${colorFeature} ${lifestyleFeature} ${piramidFeature} And, as you may have guessed, this is not a real IQ-test.`
-    return result
+    
+    res.status(200).send(result)
 }
