@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { resultsHandler } from './functions.js'
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 const app = express()
 
 app.use(cors())
